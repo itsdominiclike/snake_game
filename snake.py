@@ -39,6 +39,14 @@ class Snake:
         additions.setpos(self.new_x, self.new_y)  # Position it at the last known tail position
         self.segments.append(additions)  # Add the new segment to the snake
 
+    def reset(self):
+        """Resets the snake by moving segments off-screen, clearing the list, and recreating the snake."""
+        for segment in self.segments:
+            segment.goto(1000, 1000)  # Move existing segments off-screen before clearing
+        self.segments.clear()
+        self.create_snake()  # Recreate the snake with initial segments
+        self.head_snake = self.segments[0]  # Reset the head reference
+
     def move(self):
         """Moves the snake forward by shifting each segment to the position of the one in front."""
         for i in range(len(self.segments) - 1, 0, -1):  # Iterate from the tail to the head (excluding the head)
